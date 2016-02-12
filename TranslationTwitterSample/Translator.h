@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TranslatorDelegate;
+
 @interface Translator : NSObject
 
-- (void)initializeToken;
-
+@property (nonatomic,weak) id <TranslatorDelegate> delegate;
+// 翻訳の実行
+- (void)conversion:(NSString*)message;
 
 @end
+
+@protocol TranslatorDelegate <NSObject>
+
+- (void)didFinishConversion:(NSString *)message;
+
+@end
+
+
