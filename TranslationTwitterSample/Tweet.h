@@ -16,6 +16,6 @@
 @property NSString *created_at;//作成日時
 @property NSString *icon;//アイコン
 @property NSString *profile_image_url;//アイコン
-@property long *tweetId;//Id
+@property long tweetId;//Id
 
 @end

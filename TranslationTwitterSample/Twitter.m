@@ -44,17 +44,20 @@
 }
 
 
-- (void) timeline {
+- (void) seach:(NSString *)word {
 
     while (_acaccount == nil ){
         NSLog(@"account = nil waiting...");
         [NSThread sleepForTimeInterval:0.5];
     }
 
+    [_tweets removeAllObjects];
+    [self.delegate didFinishLoad];
+
     // 検索
     NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1.1/search/tweets.json"];
     NSDictionary *params = @{@"count" : @"100",
-                             @"q":@"iOS swift"};
+                             @"q":word};
     SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
                                             requestMethod:SLRequestMethodGET
                                                       URL:url
@@ -79,6 +82,7 @@
                      Tweet *tweet = [Tweet alloc];
                      tweet.created_at = [t objectForKey:@"created_at"];
                      tweet.text = [t objectForKey:@"text"];
+                     tweet.tweetId = [t objectForKey:@"id"];
                      NSDictionary *user = [t objectForKey:@"user"];
                      tweet.profile_image_url = [user objectForKey:@"profile_image_url"];
                      tweet.name = [user objectForKey:@"name"];

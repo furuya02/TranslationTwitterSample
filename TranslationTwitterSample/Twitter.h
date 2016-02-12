@@ -17,7 +17,8 @@
 @property (nonatomic) NSMutableArray *tweets;
 
 @property (nonatomic,weak) id <TwitterDelegate> delegate;
-- (void) timeline;
+
+- (void) seach:(NSString *)word;
 
 @end
 

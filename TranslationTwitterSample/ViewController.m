@@ -12,15 +12,13 @@
 #import "Twitter.h"
 #import "Translator.h"
 
-@interface ViewController()<UITableViewDataSource,UITableViewDelegate,TwitterDelegate,TranslatorDelegate>
-
-
+@interface ViewController()<UITableViewDataSource,UITableViewDelegate,TwitterDelegate,TranslatorDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property Translator *translator;
-
 @property Twitter *twitter;
-
+@property (weak, nonatomic) IBOutlet UIView *searchView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -42,16 +40,20 @@ NSIndexPath *convert_in_index = nil;
     _twitter.delegate = self;
 
     // 検索
-    [_twitter timeline];
+    [_twitter seach:@"ios swift"];
+
+    // 検索ビュー
+    self.searchView.hidden = true;
+    self.searchBar.delegate = self;
 }
 
 
-// 検索結果取得完了
+// 検索結果取得完了（Twitterクラスのデリゲート）
 - (void) didFinishLoad {
     [self.tableView reloadData];
 }
 
-// 翻訳完了
+// 翻訳完了（翻訳クラスのデリゲート）
 - (void)didFinishConversion:(NSString *)message {
     if (convert_in_index != nil){
         Tweet *tweet = [_twitter.tweets objectAtIndex: convert_in_index.row];
@@ -61,22 +63,26 @@ NSIndexPath *convert_in_index = nil;
     }
 }
 
-// 更新ボタン
-- (IBAction)tapRefreshButton:(id)sender {
-    [_twitter timeline];
-}
-
 // 検索ボタン
 - (IBAction)tapSearchButton:(id)sender {
-//    NSString *message = @"A swift-flying insectivorous bird with long, slender wings and a superficial resemblance to a swallow, spending most of its life on the wing.Family Apodidae: several genera and numerous species, in particular the common Eurasian swift (Apus apus)";
-//
-//    [_translator conversion:message];
+    // 検索ビュー表示
+    self.searchView.hidden = false;
+    [self.view endEditing: NO];
 }
 
+// 検索開始
+-(void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
+    [_twitter seach:self.searchBar.text];
+    self.searchView.hidden = true;
+    [self.view endEditing: YES];
+}
+
+// tableViewのデリゲート（必須）
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _twitter.tweets.count;
 }
 
+// tableViewのデリゲート（必須）
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     Tweet *tweet = [_twitter.tweets objectAtIndex:indexPath.row];
@@ -93,41 +99,25 @@ NSIndexPath *convert_in_index = nil;
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+// tableViewのセルをスワイプした時のメニューの編集のため必要
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//}
 
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
-
+// tableViewのセルをスワイプした際の処理
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    //UITableViewRowAction の backgroundColor プロパティでカスタマイズできる。
-
     UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
                                        title:@"翻訳"
                                      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
                                          Tweet *tweet = [_twitter.tweets objectAtIndex:indexPath.row];
+                                         //非同期で、翻訳クラスに翻訳を依頼する
                                          [_translator conversion:tweet.text];
                                          convert_in_index = indexPath;
                                      }];
     action.backgroundColor = [UIColor colorWithRed:0 green:0.2 blue:0 alpha:1];
     return @[action];
-
-//    return @[
-//             [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
-//                                                title:@"翻訳"
-//                                              handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-//                                                  Tweet *tweet = [_twitter.tweets objectAtIndex:indexPath.row];
-//                                                  [_translator conversion:tweet.text];
-//                                                  convert_in_index = indexPath;
-//                                              }],
-//             ];
 }
 
 
