@@ -21,6 +21,7 @@
 		D7404FA51C6C5E37000AC0E5 /* Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = D7404FA41C6C5E37000AC0E5 /* Twitter.m */; };
 		D7404FA81C6C6C79000AC0E5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7404FA71C6C6C79000AC0E5 /* Social.framework */; };
 		D7404FAB1C6CE8A3000AC0E5 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D7404FAA1C6CE8A3000AC0E5 /* TweetCell.m */; };
+		D7404FB11C6D56A1000AC0E5 /* Translator.m in Sources */ = {isa = PBXBuildFile; fileRef = D7404FB01C6D56A1000AC0E5 /* Translator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,10 @@
 		D7404FA71C6C6C79000AC0E5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D7404FA91C6CE8A3000AC0E5 /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
 		D7404FAA1C6CE8A3000AC0E5 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
+		D7404FAF1C6D56A1000AC0E5 /* Translator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Translator.h; sourceTree = "<group>"; };
+		D7404FB01C6D56A1000AC0E5 /* Translator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Translator.m; sourceTree = "<group>"; };
+		D7404FB21C6D5A79000AC0E5 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = "Pods/../build/Debug-iphoneos/AFNetworking.framework"; sourceTree = "<group>"; };
+		D7404FB41C6D6157000AC0E5 /* Secret.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Secret.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +115,7 @@
 		34B1AE9622C61D88347A834B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7404FB21C6D5A79000AC0E5 /* AFNetworking.framework */,
 				59F361B86E5C2D579DD99115 /* Pods_TranslationTwitterSample.framework */,
 			);
 			name = Frameworks;
@@ -191,6 +197,9 @@
 				D7404FA11C6C54A4000AC0E5 /* Tweet.h */,
 				D7404FA41C6C5E37000AC0E5 /* Twitter.m */,
 				D7404FA61C6C5E41000AC0E5 /* Twitter.h */,
+				D7404FAF1C6D56A1000AC0E5 /* Translator.h */,
+				D7404FB01C6D56A1000AC0E5 /* Translator.m */,
+				D7404FB41C6D6157000AC0E5 /* Secret.h */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -380,6 +389,7 @@
 				D7404F701C6C5086000AC0E5 /* AppDelegate.m in Sources */,
 				D7404F6D1C6C5086000AC0E5 /* main.m in Sources */,
 				D7404FAB1C6CE8A3000AC0E5 /* TweetCell.m in Sources */,
+				D7404FB11C6D56A1000AC0E5 /* Translator.m in Sources */,
 				D7404FA01C6C5487000AC0E5 /* Tweet.m in Sources */,
 				D7404FA51C6C5E37000AC0E5 /* Twitter.m in Sources */,
 			);
@@ -521,7 +531,12 @@
 			baseConfigurationReference = 8FB881C321F46BE4EF98B019 /* Pods-TranslationTwitterSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = TranslationTwitterSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ne.sapporoworks.TranslationTwitterSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -533,7 +548,12 @@
 			baseConfigurationReference = 5686EF7080B0BCC798AD70B7 /* Pods-TranslationTwitterSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = TranslationTwitterSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.ne.sapporoworks.TranslationTwitterSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

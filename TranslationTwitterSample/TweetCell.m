@@ -26,7 +26,8 @@
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:tweet.profile_image_url]];
     _iconImage.image = [UIImage imageWithData:data];
     _nameLabel.text = tweet.name;
-    _createAtLabel.text = tweet.created_at;
+    //_createAtLabel.text = tweet.created_at;
+    _createAtLabel.text = [NSString stringWithFormat:@"%l",tweet.tweetId];
     _bodyLabel.text = tweet.text;
 }
 

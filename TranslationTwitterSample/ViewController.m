@@ -10,6 +10,7 @@
 #import "TweetCell.h"
 #import "Tweet.h"
 #import "Twitter.h"
+#import "Translator.h"
 
 
 
@@ -18,6 +19,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property Translator *translator;
 
 @property Twitter *twitter;
 
@@ -31,10 +33,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // 翻訳クラス
+    _translator = [[Translator alloc] init];
+
+
+     // Twitterクラス
     _twitter = [[Twitter alloc] init];
     _twitter.delegate = self;
+
+    // 検索
     [_twitter timeline];
-    
+
 }
 
 

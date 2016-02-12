@@ -5,8 +5,7 @@ use_frameworks!
 
 target 'TranslationTwitterSample' do
 
-  pod 'Alamofire'
-  pod 'SwiftyJSON'
+	pod "AFNetworking", "~> 2.0"
 
 end
 
